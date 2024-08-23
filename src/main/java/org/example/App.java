@@ -11,9 +11,8 @@ public class App {
 
     public static void main(String[] args) {
         List<Athlete> allAthletes = new ArrayList<>();
-        try(FileReader fr = new FileReader(FILE_NAME_ATHLETES)) {
-            BufferedReader br = new BufferedReader(fr);
-            Iterator iterator = br.lines().iterator();
+        try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_ATHLETES))) {
+            Iterator<String> iterator = br.lines().iterator();
             while (iterator.hasNext()) {
                 String[] currentLine = iterator.next().toString().split(",");
                 allAthletes.add(new Athlete(currentLine[0], currentLine[1]));
