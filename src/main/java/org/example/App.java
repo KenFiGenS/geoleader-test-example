@@ -51,6 +51,33 @@ public class App {
                 }
             }
         }
+        if (result.get(result.size() - 1).getTeamName().equals(result.get(result.size() - 2).getTeamName())) {
+            return changeList(result);
+        }
+        return result;
+    }
+
+    public static List<Athlete> changeList(List<Athlete> athletesList) {
+        List<Athlete> result = new ArrayList<>();
+        for (int i = 0; i < athletesList.size() - 2; i++) {
+            Athlete current = athletesList.get(i);
+            Athlete next = athletesList.get(i + 1);
+            Athlete last = athletesList.get(athletesList.size() - 1);
+            if (!current.getTeamName().equals(next.getTeamName()) &&
+                    !current.getTeamName().equals(last.getTeamName()) &&
+                    !next.getTeamName().equals(last.getTeamName())) {
+                for (int j = 0; j < athletesList.size() - 1; j++) {
+                    if (i == j - 1) {
+                        result.add(last);
+                    }
+                    result.add(athletesList.get(j));
+                }
+                break;
+            }
+        }
+        if (result.get(result.size() - 1).getTeamName().equals(result.get(result.size() - 2).getTeamName())) {
+            return changeList(result);
+        }
         return result;
     }
 }
