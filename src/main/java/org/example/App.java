@@ -1,7 +1,10 @@
 package org.example;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class App {
@@ -11,10 +14,10 @@ public class App {
 
     public static void main(String[] args) {
         List<Athlete> allAthletes = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_ATHLETES))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_ATHLETES))) {
             Iterator<String> iterator = br.lines().iterator();
             while (iterator.hasNext()) {
-                String[] currentLine = iterator.next().toString().split(",");
+                String[] currentLine = iterator.next().split(",");
                 allAthletes.add(new Athlete(currentLine[0], currentLine[1]));
             }
         } catch (IOException e) {
@@ -23,7 +26,7 @@ public class App {
 
         List<Athlete> result = getResult(allAthletes);
 
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME_RESULT))){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME_RESULT))) {
             for (Athlete athlete : result) {
                 bw.write(athlete + "\n");
             }
@@ -39,7 +42,7 @@ public class App {
                 .sorted(Comparator.comparing(List::size))
                 .collect(Collectors.toList());
 
-        int maxSize = sortByTeamNameAndSizeTeam.get(sortByTeamNameAndSizeTeam.size()-1).size();
+        int maxSize = sortByTeamNameAndSizeTeam.get(sortByTeamNameAndSizeTeam.size() - 1).size();
         List<Athlete> result = new ArrayList<>();
         for (int i = 0; i < maxSize; i++) {
             for (List<Athlete> list : sortByTeamNameAndSizeTeam) {
